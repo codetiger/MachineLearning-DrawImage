@@ -44,9 +44,9 @@ x_test, y_test = getDataSet("data/test/", imgWidth, imgHeight)
 x_train = x_train.reshape(x_train.shape[0], imgWidth, imgHeight, 1)
 x_test = x_test.reshape(x_test.shape[0], imgWidth, imgHeight, 1)
 
-batch_size = 128
+batch_size = 1
 num_classes = len(x_train)
-epochs = 12
+epochs = 100
 
 input_shape = (imgWidth, imgHeight, 1)
 
@@ -55,10 +55,6 @@ x_test = x_test.astype('float32')
 
 x_train /= 255
 x_test /= 255
-
-print('x_train shape:', x_train.shape)
-print(x_train.shape[0], 'train samples')
-print(x_test.shape[0], 'test samples')
 
 # convert class vectors to binary class matrices
 y_train = keras.utils.to_categorical(y_train, num_classes)
@@ -85,7 +81,11 @@ model.fit(x_train, y_train,
           epochs=epochs,
           verbose=1,
           validation_data=(x_test, y_test))
+
 score = model.evaluate(x_test, y_test, verbose=0)
 print('Test loss:', score[0])
 print('Test accuracy:', score[1])
 model.save('cnn.h5')
+
+x_test, y_test = getDataSet("data/test/", imgWidth, imgHeight)
+print(model.predict(x_test))
