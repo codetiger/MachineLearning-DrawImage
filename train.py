@@ -86,6 +86,3 @@ score = model.evaluate(x_test, y_test, verbose=0)
 print('Test loss:', score[0])
 print('Test accuracy:', score[1])
 model.save('cnn.h5')
-
-x_test, y_test = getDataSet("data/test/", imgWidth, imgHeight)
-print(model.predict(x_test))
